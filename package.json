@@ -15,6 +15,15 @@
     "express": "^4.13.0",
     "morgan": "^1.6.0",
     "multer": "^0.1.8",
+    "react": "^0.13.3",
     "serve-static": "^1.10.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.0.3",
+    "reactify": "^1.1.1"
   }
 }
