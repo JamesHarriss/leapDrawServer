@@ -2,7 +2,14 @@ var gulp = require('gulp'),
     browserify = require('gulp-browserify'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
-    prefix = require('gulp-autoprefixer');
+    prefix = require('gulp-autoprefixer'),
+    plumber = require('gulp-plumber');
+
+
+function swallow(err) {
+  console.log(err);
+  this.emit('end');
+}
 
 gulp.task('js', function(){
   gulp.src('./public/js-dev/app.js')
@@ -12,13 +19,16 @@ gulp.task('js', function(){
 });
 
 gulp.task('sass', function(){
-	gulp.src('src/sass/style.scss')
-	.pipe(sass())
+	gulp.src('./public/scss/style.scss')
+  .pipe(plumber({ errorHandler: swallow }))
+	.pipe(sass({
+    style: "expanded"
+  }))
 	.pipe(prefix({
 		browsers: ['last 2 versions'],
 		cascade: false
 		}))
-	.pipe(gulp.dest('./dist/css'));
+	.pipe(gulp.dest('./public/css/'));
 });
 
 gulp.task('copy', function(){
@@ -33,5 +43,5 @@ gulp.task('default', ['js','copy']);
 
 gulp.task('watch', function(){
   gulp.watch('./public/js-dev/**/*.*', ['js']);
-  //gulp.watch('./src/sass/**/*.scss', ['sass']);
+  gulp.watch('./public/scss/**/*.scss', ['sass']);
 });
